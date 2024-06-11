@@ -1,0 +1,30 @@
+/* 
+.sticky-column {
+    position: sticky !important;
+    left: 56px !important;
+    z-index: 1;
+    background-color: white;
+}
+
+.MuiDataGrid-columnHeaderCheckbox,
+.MuiDataGrid-cellCheckbox {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: white;
+} */
+
+.sticky-checkbox {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 2;
+    background-color: white; /* Ensure background color to avoid overlapping issues */
+  }
+  
+  .sticky-column {
+    position: sticky !important;
+    left: 50px !important; /* Adjust based on the checkbox column width */
+    z-index: 1;
+    background-color: white; /* Ensure background color to avoid overlapping issues */
+  }
+  
