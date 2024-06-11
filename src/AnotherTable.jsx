@@ -1,6 +1,11 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Paper, TextField } from '@mui/material';
 import { styled } from '@mui/system';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 // Styling for body cells that are sticky
 const StyledTableCell = styled(TableCell)({
@@ -109,6 +114,39 @@ const dummyJson = [
         ]
     },
     {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+
+    {
         "_id": "88er387387dfjbn350",
         "name": "Robert Taylor",
         "rounds": [
@@ -157,6 +195,39 @@ const dummyJson = [
         ]
     },
     {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
         "_id": "88er387387dfjbn353",
         "name": "Emma Harris",
         "rounds": [
@@ -169,6 +240,38 @@ const dummyJson = [
             { "round": 7, "status": "Qualified" },
             { "round": 8, "status": "Redeemed" },
             { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
             { "round": 10, "status": "Eliminated" }
         ]
     },
@@ -203,15 +306,455 @@ const dummyJson = [
             { "round": 9, "status": "Redeemed" },
             { "round": 10, "status": "Disqualified" }
         ]
+    },
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    }
+
+]
+const redeem = [
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    },
+    {
+        "_id": "unique_id_2",
+        "name": "Jane Smith",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    },
+    {
+        "_id": "unique_id_3",
+        "name": "Alice Johnson",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    },
+    {
+        "_id": "unique_id_4",
+        "name": "Bob Brown",
+        "rounds": [
+            { "round": 10, "status": "Redeemed" },
+            { "round": 1, "status": "Redeemed" },
+            { "round": 2, "status": "Redeemed" },
+            { "round": 3, "status": "Redeemed" },
+            { "round": 4, "status": "Redeemed" },
+            { "round": 5, "status": "Redeemed" },
+            { "round": 6, "status": "Redeemed" },
+            { "round": 7, "status": "Redeemed" },
+            { "round": 8, "status": "Redeemed" },
+            { "round": 9, "status": "Redeemed" }
+        ]
+    }
+]
+const Qualified = [
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_2",
+        "name": "Jane Smith",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_3",
+        "name": "Alice Johnson",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_4",
+        "name": "Bob Brown",
+        "rounds": [
+            { "round": 1, "status": "Qualified" },
+            { "round": 2, "status": "Qualified" },
+            { "round": 3, "status": "Qualified" },
+            { "round": 4, "status": "Qualified" },
+            { "round": 5, "status": "Qualified" },
+            { "round": 6, "status": "Qualified" },
+            { "round": 7, "status": "Qualified" },
+            { "round": 8, "status": "Qualified" },
+            { "round": 9, "status": "Qualified" },
+            { "round": 10, "status": "Qualified" }
+        ]
+    }
+]
+const Eliminated = [
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+    {
+        "_id": "unique_id_2",
+        "name": "Jane Smith",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+    {
+        "_id": "unique_id_3",
+        "name": "Alice Johnson",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    },
+    {
+        "_id": "unique_id_4",
+        "name": "Bob Brown",
+        "rounds": [
+            { "round": 1, "status": "Eliminated" },
+            { "round": 2, "status": "Eliminated" },
+            { "round": 3, "status": "Eliminated" },
+            { "round": 4, "status": "Eliminated" },
+            { "round": 5, "status": "Eliminated" },
+            { "round": 6, "status": "Eliminated" },
+            { "round": 7, "status": "Eliminated" },
+            { "round": 8, "status": "Eliminated" },
+            { "round": 9, "status": "Eliminated" },
+            { "round": 10, "status": "Eliminated" }
+        ]
+    }
+]
+const Disqualified = [
+    {
+        "_id": "88er387387dfjbn356",
+        "name": "Sophia Rodriguez",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_1",
+        "name": "John Doe",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_2",
+        "name": "Jane Smith",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_3",
+        "name": "Alice Johnson",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
+    },
+    {
+        "_id": "unique_id_4",
+        "name": "Bob Brown",
+        "rounds": [
+            { "round": 1, "status": "Disqualified" },
+            { "round": 2, "status": "Disqualified" },
+            { "round": 3, "status": "Disqualified" },
+            { "round": 4, "status": "Disqualified" },
+            { "round": 5, "status": "Disqualified" },
+            { "round": 6, "status": "Disqualified" },
+            { "round": 7, "status": "Disqualified" },
+            { "round": 8, "status": "Disqualified" },
+            { "round": 9, "status": "Disqualified" },
+            { "round": 10, "status": "Disqualified" }
+        ]
     }
 ]
 
-
 function StickyHeaderTable() {
+    const [age, setAge] = React.useState('');
+    const [rows, setRows] = useState(dummyJson);
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+
+    const handleChangeSearch = (e) => {
+        const data = e.target.value.trim().toLowerCase();
+        if (data === 'redeemed') {
+            setRows(redeem);
+        } else if (data === 'qualified') {
+            setRows(Qualified);
+        } else if (data === 'disqualified') {
+            setRows(Disqualified);
+        } else if (data === 'eliminated') {
+            setRows(Eliminated);
+        }
+        else if (data.length === 0) {
+            setRows(dummyJson);
+        } else {
+            setRows([]);
+        }
+    }
+
+
+
+    useEffect(() => {
+        if (age === 'redeemed') {
+            setRows(redeem); // Update rows state to redeem data when age is 20
+        } else if (age === 'qualified') {
+            setRows(Qualified); // Otherwise, keep the rows state as dummyJson
+        } else if (age === 'disqualified') {
+            setRows(Disqualified);
+        } else if (age === 'eliminated') {
+            setRows(Eliminated);
+        } else {
+            setRows(dummyJson);
+        }
+    }, [age]);
+
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader sx={{p:1}}>
+        <Paper sx={{ width: '100%', overflow: 'hidden', position: 'relative' }}>
+            {/* <Box>
+                <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeSearch} />
+                <FormControl fullWidth sx={{ width: 200, mt: 2 }}>
+                    <InputLabel id="demo-simple-select-label">Select The Option</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="Age"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={'all'}>All</MenuItem>
+                        <MenuItem value={'qualified'}>Qualified</MenuItem>
+                        <MenuItem value={'redeemed'}>Redeemed</MenuItem>
+                        <MenuItem value={'disqualified'}>Disqualified</MenuItem>
+                        <MenuItem value={'eliminated'}>eliminated</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box> */}
+            <Box sx={{ position: 'absolute', top: 0, right: 0, padding: '10px', zIndex: 999 }}>
+                <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleChangeSearch} />
+                <FormControl fullWidth sx={{ width: 200 }}>
+                    <InputLabel id="demo-simple-select-label">Select The Option</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="Age"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={'all'}>All</MenuItem>
+                        <MenuItem value={'qualified'}>Qualified</MenuItem>
+                        <MenuItem value={'redeemed'}>Redeemed</MenuItem>
+                        <MenuItem value={'disqualified'}>Disqualified</MenuItem>
+                        <MenuItem value={'eliminated'}>Eliminated</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+            <TableContainer sx={{ maxHeight: 440, marginTop: 5 }}>
+                <Table stickyHeader sx={{ p: 1 }}>
                     <TableHead>
                         <TableRow>
                             {columns.map((column) => {
@@ -238,7 +781,7 @@ function StickyHeaderTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {dummyJson.map((row) => (
+                        {rows.map((row) => (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                 <StyledTableCell>
                                     <Checkbox />
@@ -256,6 +799,7 @@ function StickyHeaderTable() {
                         ))}
                     </TableBody>
                 </Table>
+
             </TableContainer>
         </Paper>
     );
